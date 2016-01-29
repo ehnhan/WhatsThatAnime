@@ -2,5 +2,7 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
   console.log('Starting');
 
-  chrome.tabs.executeScript({file: "show.js"});
+  // chrome.tabs.executeScript({file: "show.js"});
+
+  // TODO turn on and off option
 });

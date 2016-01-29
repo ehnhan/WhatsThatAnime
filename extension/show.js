@@ -48,17 +48,17 @@ function updatePage() {
       var source = checkLink(link);
 
       if (source != null) {
-        //var name = document.createTextNode(link);
-        //document.body.appendChild(name);
 
-        var h = document.createElement("H1"); // Create a <h1> element
-        h.innerHTML = "This is from: " + source;
+        // create an element to display the source
+        var div = document.createElement("div");
+        div.innerHTML = "This is from: " + source;
+        div.className = "tooltip-content";
 
-        links[i].parentNode.insertBefore(h, links[i].nextSibling);
-
-        links[i].onclick = test;
-
-        //h.onclick = test;
+        // appends the element to the parent of the image and
+        // updates the class so that it displays the source when hovered
+        var parent = links[i].parentNode;
+        parent.className += " tooltip-wrap";
+        parent.appendChild(div);
       }
     }
   }
@@ -73,11 +73,4 @@ function checkLink(link) {
     console.log("no key found");
     return null;
   }
-}
-
-function test() {
-  document.body.style.backgroundColor="red";
-
-  this.style.visibility = 'hidden'; // Hide
-  //element.style.visibility = 'visible'; // Show
 }
