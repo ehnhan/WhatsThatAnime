@@ -1,16 +1,18 @@
 import sys
 import re
 
-filename = sys.argv[1]
-tracefile = open(filename, "r")
-newfile = open("output.csv", "w")
-
 # get source from https://www.reddit.com/r/anime/wiki/commentfacesources
+# commentfacesources.txt is a somewhat cleaned up version of the webpage
+# use the no order section
 
 # modify file so that it is in the format:
 # [](#breakingnews)  ^#breakingnews| Love Lab|  [](#brofist) ^#brofist| Ore Monogatari | [](#cokemasterrace) ^#cokemasterrace|  K-On!  |
 
 # needed to modify some of the sources ie. [](#akyuusqueel) ^#akyuusqueel| [Touhou fanart](http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=12981879)
+
+filename = sys.argv[1]
+tracefile = open(filename, "r")
+newfile = open("output_image_to_source.csv", "w")
 
 while True:
 	line = tracefile.readline()
