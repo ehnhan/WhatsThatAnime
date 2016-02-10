@@ -3,19 +3,35 @@ import re
 
 # get source from https://www.reddit.com/r/anime/wiki/commentfacesources
 # commentfacesources.txt is a somewhat cleaned up version of the webpage
-# use the no order section
+# (use the no order section)
 
 # modify file so that it is in the format:
-# [](#breakingnews)  ^#breakingnews| Love Lab|  [](#brofist) ^#brofist| Ore Monogatari | [](#cokemasterrace) ^#cokemasterrace|  K-On!  |
+# [](#breakingnews)  ^#breakingnews| Love Lab|  [](#brofist) ^#brofist| Ore Monogatari
 
-# needed to modify some of the sources ie. [](#akyuusqueel) ^#akyuusqueel| [Touhou fanart](http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=12981879)
+# needed to modify some of the sources
+# ie. [](#akyuusqueel) ^#akyuusqueel| [Touhou fanart](http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=12981879)
 
-filename = sys.argv[1]
-tracefile = open(filename, "r")
-newfile = open("output_image_to_source.csv", "w")
+inputfile = open("input_image_to_source.txt", "r")
+outputfile = open("output_image_to_source.csv", "w")
+
+outputShows = open("outputsources.txt", "w")
+
+# sources_to_modify.txt contains names of sources that need to be changed to match the titles used in our streaming site json file in our other parser
+changefile = open("sources_to_modify.txt", "r")
+changeMap = dict()
+
+# create a map of the names that need to be changed
+while True:
+	line = changefile.readline()
+
+	if line == "":
+		break
+
+	split = line.split(" = ")
+	changeMap[split[0]] = split[1]
 
 while True:
-	line = tracefile.readline()
+	line = inputfile.readline()
 
 	if line == "":
 		break
@@ -39,4 +55,12 @@ while True:
 		# trim whitespace from front and end
 		output = clean2[0].strip() + "," + clean2[1].strip()
 
-		newfile.write(output + "\n")
+		# replace name if needed
+		splitShow = output.split(',', 1)
+		newName = changeMap.get(splitShow[1])
+		if newName != None and newName != "NOT FOUND\n":
+			outputShows.write(newName)
+			outputfile.write(splitShow[0] + "," + newName)
+		else:
+			outputShows.write(splitShow[1] + "\n")
+			outputfile.write(output + "\n")
