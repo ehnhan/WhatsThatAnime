@@ -16,7 +16,7 @@ import re
 
 filename = sys.argv[1]
 tracefile = open(filename, "r")
-newfile = open("output_sources.csv", "w")
+newfile = open("output_sources.txt", "w")
 
 while True:
 	line = tracefile.readline()
