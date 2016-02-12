@@ -8,3 +8,5 @@ pygoogle.py is from https://code.google.com/archive/p/pygoogle/
 
 To get the output of sources from image_to_source parser to be unique and sorted:
 sort outputsources.txt | uniq > out.txt
+
+Look in commentfaces_to_modify.txt to find where in the output of image_to_source parser you need to change manually

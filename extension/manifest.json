@@ -22,5 +22,5 @@
       "js": ["show.js"]
     }
   ],
-  "web_accessible_resources": ["sourcefile.csv"]
+  "web_accessible_resources": ["sourcefile.tsv", "sites.json"]
 }

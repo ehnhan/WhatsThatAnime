@@ -14,12 +14,12 @@ from pygoogle import pygoogle
 inputfile = open("sample.txt", "r")
 #inputfile = open("input_shows.txt", "r")
 
-newfile = open("output_sources_to_watch.json", "w")
+newfile = open("output_sources_to_info.json", "w")
 
 json_data = open("us.json")
 watch_obj = json.load(json_data)['shows']
 
-output = "{"
+output = "{\"shows\": ["
 
 while True:
 	line = inputfile.readline()
@@ -30,7 +30,7 @@ while True:
  	line = line.replace('\n', '')
 
 	# start line for a show
-	output += "\"" + line + "\": {"
+	output += "{\"name\": \"" + line + "\", \"sites\": {"
 
 	# TODO
 	# USE other api instead because google limited to 100 searches/day
@@ -74,11 +74,11 @@ while True:
 		output = output[:-2]
 
 	# close a line for a show
-	output += "}, "
+	output += "}}, "
 
 # remove ", " from end
 output = output[:-2]
-output += "}"
+output += "]}"
 
 newfile.write(output)
 

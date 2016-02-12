@@ -12,7 +12,7 @@ import re
 # ie. [](#akyuusqueel) ^#akyuusqueel| [Touhou fanart](http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=12981879)
 
 inputfile = open("input_image_to_source.txt", "r")
-outputfile = open("output_image_to_source.csv", "w")
+outputfile = open("output_image_to_source.tsv", "w")
 
 outputShows = open("outputsources.txt", "w")
 
@@ -53,14 +53,15 @@ while True:
 		clean2 = regex2.split(clean1)
 
 		# trim whitespace from front and end
-		output = clean2[0].strip() + "," + clean2[1].strip()
+		commentface = clean2[0].strip()
+		showName = clean2[1].strip()
 
 		# replace name if needed
-		splitShow = output.split(',', 1)
-		newName = changeMap.get(splitShow[1])
+		#splitShow = output.split('\t', 1)
+		newName = changeMap.get(showName)
 		if newName != None and newName != "NOT FOUND\n":
 			outputShows.write(newName)
-			outputfile.write(splitShow[0] + "," + newName)
+			outputfile.write(commentface + "\t" + newName)
 		else:
-			outputShows.write(splitShow[1] + "\n")
-			outputfile.write(output + "\n")
+			outputShows.write(showName + "\n")
+			outputfile.write(commentface + "\t" + showName + "\n")
